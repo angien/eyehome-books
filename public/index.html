@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="book" id="scope">
+  <head>
+  	<title>eyeHome Voice</title>
+	<link rel="stylesheet" type="text/css" href="css/foursides.css">
+
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script>  
+
+	</script>
+    <script src="js/books.js"></script>
+  </head>
+  <body ng-controller="Books" id="controller"  ng-keyup="keyPress($event, currentScreen)">
+
+
+<!-- 
+ -->
+<div id="screen1" ng-show="currentScreen == 1">
+	<div class='rectangleLeft' ng-click="bookSelected(0)" id="rl"> 
+		<h4>{{messages[currentPage*3 + 0]}}</h4>
+		<div class="progress" id="rlp"></div>
+	</div>
+	<div class='rectangleTop' ng-click="bookSelected(1)" id="rt">
+		<h4>{{messages[currentPage*3 + 1]}}</h4>
+		<div class="progress" id="rtp"></div>
+	</div>
+	<div class='rectangleRight' ng-click="bookSelected(2)" id="rr">
+		<h4>{{messages[currentPage*3 + 2]}}</h4>
+		<div class="progress" id="rrp"></div>
+	</div>
+	<div class='rectangleBottom' ng-click="nextPage()" id="rb">
+		<h4>More</h4>
+		<div class="progress" id="rbp"></div>
+	</div>
+</div>
+
+<div id="voice-center" class="row clearfix">
+	<div id="screen2-messages" ng-show="currentScreen == 1">
+		<div class="greeting" class="row">
+			<div class="col-lg-12">
+				Please choose a book.
+			</div>
+		</div>
+		<div class="col-lg-12">
+		<!-- 	<div class="list" id="voice-message" ng-bind-html="arrayToString(messages)">
+				
+			</div> -->
+		</div>
+	</div>
+</div>
+
+
+<div id="screen2" ng-show="currentScreen == 2">
+	<div class='rectangleLeft' ng-click="prevBookPage()" id="rl"> <!-- should open keyboard-->
+		<h4>Previous Page</h4>
+		<div class="progress" id="rlp"></div>
+	</div>
+	<div class='rectangleTop' ng-click="playAlert()" id="rt">
+		<h4>Bookmark? Go to page?</h4>
+		<div class="progress" id="rtp"></div>
+	</div>
+	<div class='rectangleRight' ng-click="nextBookPage()" id="rr">
+		<h4>Next Page</h4>
+		<div class="progress" id="rrp"></div>
+	</div>
+	<div class='rectangleBottom' ng-click="backToMain()" id="rb"><!-- doesn't do anything right now-->
+		<h4>Choose Another Book</h4>
+		<div class="progress" id="rbp"></div>
+	</div>
+</div>
+
+<div id="voice-center" class="row clearfix">
+	<div id="screen2-messages" ng-show="currentScreen == 2">
+		<div class="greeting" class="row">
+			<div class="col-lg-12">
+			{{booklines[currentBookPage*30 + 0]}} {{booklines[currentBookPage*30 + 1]}} {{booklines[currentBookPage*30 + 2]}} {{booklines[currentBookPage*30 + 3]}} {{booklines[currentBookPage*30 + 4]}}<br>
+
+				{{booklines[currentBookPage*30 + 5]}} {{booklines[currentBookPage*30 + 6]}} {{booklines[currentBookPage*30 + 7]}} {{booklines[currentBookPage*30 + 8]}} {{booklines[currentBookPage*30 + 9]}}<br>
+
+				{{booklines[currentBookPage*30 + 10]}} {{booklines[currentBookPage*30 + 11]}} {{booklines[currentBookPage*30 + 12]}} {{booklines[currentBookPage*30 + 13]}} {{booklines[currentBookPage*30 + 14]}}<br>
+
+				{{booklines[currentBookPage*30 + 15]}} {{booklines[currentBookPage*30 + 16]}} {{booklines[currentBookPage*30 + 17]}} {{booklines[currentBookPage*30 + 18]}} {{booklines[currentBookPage*30 + 19]}}<br>
+
+				{{booklines[currentBookPage*30 + 20]}} {{booklines[currentBookPage*30 + 21]}} {{booklines[currentBookPage*30 + 22]}} {{booklines[currentBookPage*30 + 23]}} {{booklines[currentBookPage*30 + 24]}}<br>
+				
+				{{booklines[currentBookPage*30 + 25]}} {{booklines[currentBookPage*30 + 26]}} {{booklines[currentBookPage*30 + 27]}} {{booklines[currentBookPage*30 + 28]}} {{booklines[currentBookPage*30 + 29]}}<br>
+
+			</div>
+		</div>
+		<div class="col-lg-12">
+		<!-- 	<div class="list" id="voice-message" ng-bind-html="arrayToString(messages)">
+				
+			</div> -->
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
