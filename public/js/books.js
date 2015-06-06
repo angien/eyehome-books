@@ -43,26 +43,22 @@ angular.module('book', [])
 
   function displayContents() {
     if(reader.readyState==4) {
-      var lines = reader.responseText.split(' ');
-      //console.log(lines);
-      for(var line = 0; line < lines.length; line++){
-        //console.log(line + " " +lines[line]);
-        $scope.booklines[line] = lines[line];
-        
+      if (reader.status === 200) {  
+        var lines = reader.responseText.split(' ');
+        //console.log(lines);
+        for(var line = 0; line < lines.length; line++){
+          //console.log(line + " " +lines[line]);
+          $scope.booklines[line] = lines[line];
+          
+        }
+        console.log("Finished loading");
+        $scope.toScreen2();
+        $scope.$apply();
       }
-      console.log("Finished loading");
-      $scope.$apply();
-
     }
   }
-  $scope.arrayToString = function(array) {
-    for (i = 0; i < 3; i++) {
-      // highlight ones on current page
-      index = $scope.currentPage * 3 + i;
-      array[index] = "<span style='color:dark green;'>" + array[index] + "</span>";
-      console.log(array[index]);
-    }
-    return array.join("<br/>");
+  $scope.bookmark = function(page) {
+    console.log("Bookmarking at " + page);
   };
 
   $scope.toScreen2 = function () {
@@ -71,11 +67,6 @@ angular.module('book', [])
   $scope.toScreen1 = function () {
     $scope.currentScreen = 1;
   };
-  
-  $scope.writeMessage = function () {
-    // open eyehome keyboard
-    // play message when the keyboard is closed
-  }
   
   $scope.chooseMessage = function () {
 
@@ -92,14 +83,6 @@ angular.module('book', [])
   };
 
   $scope.nextBookPage = function () {
-    if ($scope.currentBookPage == 2000) {
-      for(var line = 0; line < 2000; line++){
-        console.log(line + " " +lines[line]);
-        $scope.booklines[line] = lines[line];
-        
-      }
-      // load more pages
-    }
     if ($scope.booklines.length > ($scope.currentBookPage * 30) + 30) {
       $scope.currentBookPage++;
     } else {
@@ -120,7 +103,6 @@ angular.module('book', [])
   $scope.bookSelected = function (message_num) {
     console.log("Opening book " + $scope.messages[$scope.currentPage*3 + message_num]);
     //$scope.playMessage($scope.messages[$scope.currentPage*3 + message_num]);
-    $scope.toScreen2();
     loadFile("../books/"+ $scope.messages[$scope.currentPage*3 + message_num] + ".txt", displayContents);
 
   };
@@ -131,6 +113,7 @@ angular.module('book', [])
   
   $scope.backToMain = function () {
     $scope.currentPage = 0;
+    $scope.currentBookPage = 0;
     $scope.toScreen1();
   };
   
@@ -139,37 +122,68 @@ angular.module('book', [])
   // have yet to check which page we're on (only works on first page)
   // may also want to refactor this out into its own controller
   $scope.keyPress = function(e, currentScreen) {
-    console.log('keyup', e);
+    //console.log('keyup', e);
     var key = e.keyCode ? e.keyCode : e.which;
 
     if (currentScreen == 1) {
-        if (key == '81') //left
-          $scope.writeMessage();
-        else if (key == '87') //up
-          $scope.playAlert();
-        else if (key == '69') // right
-          $scope.chooseMessage();
-        else if (key == '82') // down
-          $scope.quit();
-        else
-          console.log(e.keyCode);
-      }
-    else { // is 2
-        //TODO fix this because we don't want any pop ups (fix in index)
-        if (key == '81') //left
-          $scope.messageSelected(0);
-        else if (key == '87') //up
-          $scope.messageSelected(1);
-        else if (key == '69') // right
-          $scope.messageSelected(2);
-        else if (key == '82') // down
+      switch(e.keyCode) {
+        case 81:
+          console.log("left");
+          $scope.bookSelected(0);
+          break;
+        case 87:
+          console.log("up");
+          $scope.bookSelected(1);
+          break;
+        case 69:
+          console.log("right");
+          $scope.bookSelected(2);
+          break;
+        case 82:
+          console.log("down");
           $scope.nextPage();
-        else if (key == '89') // disengage
-          $scope.backToMain();
-        else
+          break;
+        case 84:
+          console.log("engage");
+          break;
+        case 89:
+          console.log("disengage");
+          break;
+        default:
           console.log(e.keyCode);
+          break;
       }
     }
+    else { // is 2
+      switch(e.keyCode) {
+        case 81:
+          console.log("left");
+          $scope.prevBookPage();
+          break;
+        case 87:
+          console.log("up");
+          $scope.bookmark(currentBookPage);
+          break;
+        case 69:
+          console.log("right");
+          $scope.nextBookPage();
+          break;
+        case 82:
+          console.log("down");
+          $scope.backToMain();
+          break;
+        case 84:
+          console.log("engage");
+          break;
+        case 89:
+          console.log("disengage");
+          break;
+        default:
+          console.log(e.keyCode);
+          break;
+      }
+    }
+  }
 
     init();
   }
