@@ -1,5 +1,5 @@
 Enders Game,0
 Speaker for the Dead,0
-Xenocide,2
+Xenocide,1
 Children of the Mind,0
 test test,0
