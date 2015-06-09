@@ -142,7 +142,7 @@ angular.module('book', [])
   };
 
   $scope.nextBookPage = function () {
-    if ($scope.booklines.length > ($scope.currentBookPage * 30) + 30) {
+    if ($scope.booklines.length > ($scope.currentBookPage * 40) + 40) {
       $scope.currentBookPage++;
     } else {
       // wrap around to first page
