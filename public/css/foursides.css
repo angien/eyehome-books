@@ -2,7 +2,7 @@ body {
 	background-color: #fff;
 }
 
-#voice-center {
+#center-m {
 	font-family: 'Oswald', sans-serif;
 	font-size: 40px;
 	padding: 10px;
@@ -14,7 +14,7 @@ body {
   	text-align: center;
 }
 
-#voice-message {
+#center-m {
 	margin: auto;
 }
 

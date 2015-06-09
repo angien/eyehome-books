@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="book" id="scope">
   <head>
-  	<title>eyeHome Voice</title>
+  	<title>eyeHome Books</title>
 	<link rel="stylesheet" type="text/css" href="css/foursides.css">
 
 	<script src="js/jquery-1.11.3.min.js"></script>
@@ -10,70 +10,42 @@
 
 	</script>
     <script src="js/books.js"></script>
+
   </head>
   <body ng-controller="Books" id="controller"  ng-keyup="keyPress($event, currentScreen)">
 
 
-<!-- 
- -->
-<div id="screen1" ng-show="currentScreen == 1">
-	<div class='rectangleLeft' ng-click="bookSelected(0)" id="rl"> 
-		<h4>{{messages[currentPage*3 + 0]}}</h4>
+
+<div>
+	<div class="rectangleLeft" ng-click="clickLeft()" id="rl">
+		<h4 ng-show="currentScreen == 1">{{messages[currentPage*3 + 0]}}</h4>
+		<h4 ng-show="currentScreen == 2">Previous Page</h4>
 		<div class="progress" id="rlp"></div>
 	</div>
-	<div class='rectangleTop' ng-click="bookSelected(1)" id="rt">
-		<h4>{{messages[currentPage*3 + 1]}}</h4>
+	<div class='rectangleTop' ng-click="clickTop()" id="rt">
+		<h4 ng-show="currentScreen == 1">{{messages[currentPage*3 + 1]}}</h4>
+		<h4 ng-show="currentScreen == 2">Bookmark</h4>
 		<div class="progress" id="rtp"></div>
 	</div>
-	<div class='rectangleRight' ng-click="bookSelected(2)" id="rr">
-		<h4>{{messages[currentPage*3 + 2]}}</h4>
+	<div class='rectangleRight' ng-click="clickRight()" id="rr">
+		<h4 ng-show="currentScreen == 1">{{messages[currentPage*3 + 2]}}</h4>
+		<h4 ng-show="currentScreen == 2">Next Page</h4>
 		<div class="progress" id="rrp"></div>
 	</div>
-	<div class='rectangleBottom' ng-click="nextPage()" id="rb">
-		<h4>More</h4>
+	<div class='rectangleBottom' ng-click="clickBottom()" id="rb">
+		<h4 ng-show="currentScreen == 1">More</h4>
+		<h4 ng-show="currentScreen == 2">Choose Another Book</h4>
 		<div class="progress" id="rbp"></div>
 	</div>
 </div>
 
-<div id="voice-center" class="row clearfix">
-	<div id="screen1-messages" ng-show="currentScreen == 1">
+<div id="center-m" class="row clearfix">
+	<div id="screen2-messages">
 		<div class="greeting" class="row">
-			<div class="col-lg-12">
-				Please choose a book.
+			<div class="col-lg-12" ng-show="currentScreen == 1">
+				Please choose a book.		
 			</div>
-		</div>
-		<div class="col-lg-12">
-		<!-- 	<div class="list" id="voice-message" ng-bind-html="arrayToString(messages)">
-				
-			</div> -->
-		</div>
-	</div>
-</div>
-
-
-<div id="screen2" ng-show="currentScreen == 2">
-	<div class='rectangleLeft' ng-click="prevBookPage()" id="rl"> <!-- should open keyboard-->
-		<h4>Previous Page</h4>
-		<div class="progress" id="rlp"></div>
-	</div>
-	<div class='rectangleTop' ng-click="bookmark()" id="rt">
-		<h4>Bookmark</h4>
-		<div class="progress" id="rtp"></div>
-	</div>
-	<div class='rectangleRight' ng-click="nextBookPage()" id="rr">
-		<h4>Next Page</h4>
-		<div class="progress" id="rrp"></div>
-	</div>
-	<div class='rectangleBottom' ng-click="backToMain()" id="rb"><!-- doesn't do anything right now-->
-		<h4>Choose Another Book</h4>
-		<div class="progress" id="rbp"></div>
-	</div>
-</div>
-
-<div id="voice-center" class="row clearfix">
-	<div id="screen2-messages" ng-show="currentScreen == 2">
-		<div class="greeting" class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12" ng-show="currentScreen == 2">
 			{{booklines[currentBookPage*30 + 0]}} {{booklines[currentBookPage*30 + 1]}} {{booklines[currentBookPage*30 + 2]}} {{booklines[currentBookPage*30 + 3]}} {{booklines[currentBookPage*30 + 4]}}<br>
 
 			{{booklines[currentBookPage*30 + 5]}} {{booklines[currentBookPage*30 + 6]}} {{booklines[currentBookPage*30 + 7]}} {{booklines[currentBookPage*30 + 8]}} {{booklines[currentBookPage*30 + 9]}}<br>
@@ -89,12 +61,14 @@
 			</div>
 		</div>
 		<div class="col-lg-12">
-		<!-- 	<div class="list" id="voice-message" ng-bind-html="arrayToString(messages)">
-				
-			</div> -->
+
 		</div>
 	</div>
 </div>
+
 </body>
+
+        <script type="text/javascript" src="js/foursidesHover.js"></script>
+        <script type="text/javascript" src="js/foursidesAnimations.js"></script>
 </html>
 

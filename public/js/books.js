@@ -15,6 +15,34 @@ angular.module('book', [])
     $scope.allBooks = {};
   }
 
+  $scope.clickLeft = function() {
+    if ($scope.currentScreen == 1)
+      $scope.bookSelected(0);
+    else
+      $scope.prevBookPage();
+  }
+
+  $scope.clickTop = function() {
+    if ($scope.currentScreen == 1)
+      $scope.bookSelected(1);
+    else
+      $scope.bookmark();
+  }
+
+  $scope.clickRight = function() {
+    if ($scope.currentScreen == 1)
+      $scope.bookSelected(2);
+    else
+      $scope.nextBookPage();
+  }
+
+  $scope.clickBottom = function() {
+    if ($scope.currentScreen == 1)
+      $scope.nextPage();
+    else
+      $scope.backToMain();
+  }
+
   $scope.loadBooks = function() {
     // load messages from file
     var file = '../books.txt';
@@ -26,6 +54,7 @@ angular.module('book', [])
     var bookToOpen = $scope.messages[$scope.currentPage*3 + message_num]
     console.log("Opening book " + bookToOpen);
     $scope.currentBook = bookToOpen;
+
     $scope.currentBookPage = parseInt($scope.allBooks[bookToOpen]);
     loadFile("../books/"+ bookToOpen + ".txt", displayContents);
 
@@ -63,6 +92,7 @@ angular.module('book', [])
   function displayContents() {
     if(reader.readyState==4) {
       if (reader.status === 200) {  
+        $scope.booklines = [];
         var lines = reader.responseText.split(' ');
         //console.log(lines);
         for(var line = 0; line < lines.length; line++){
@@ -144,23 +174,22 @@ angular.module('book', [])
     //console.log('keyup', e);
     var key = e.keyCode ? e.keyCode : e.which;
 
-    if (currentScreen == 1) {
       switch(e.keyCode) {
         case 81:
           console.log("left");
-          $scope.bookSelected(0);
+          $scope.clickLeft();
           break;
         case 87:
           console.log("up");
-          $scope.bookSelected(1);
+          $scope.clickTop();
           break;
         case 69:
           console.log("right");
-          $scope.bookSelected(2);
+          $scope.clickRight();
           break;
         case 82:
           console.log("down");
-          $scope.nextPage();
+          $scope.clickBottom();
           break;
         case 84:
           console.log("engage");
@@ -173,36 +202,9 @@ angular.module('book', [])
           break;
       }
     }
-    else { // is 2
-      switch(e.keyCode) {
-        case 81:
-          console.log("left");
-          $scope.prevBookPage();
-          break;
-        case 87:
-          console.log("up");
-          $scope.bookmark(currentBookPage);
-          break;
-        case 69:
-          console.log("right");
-          $scope.nextBookPage();
-          break;
-        case 82:
-          console.log("down");
-          $scope.backToMain();
-          break;
-        case 84:
-          console.log("engage");
-          break;
-        case 89:
-          console.log("disengage");
-          break;
-        default:
-          console.log(e.keyCode);
-          break;
-      }
-    }
-  }
+  
+
+
 
   init();
   
