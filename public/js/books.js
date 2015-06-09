@@ -117,13 +117,23 @@ angular.module('book', [])
       contentType: 'application/json',
       success: function (data) {
           console.log("Bookmark saved!");
+          confirmation();
       },
       error: function (xhr, status, error) {
           console.log('Error: ' + error.message);
-          $('#lblResponse').html('Error connecting to the server.');
       }
     });
   };
+
+   function confirmation() {
+    $("body").css("background-color", "green");
+
+    setTimeout(function () {
+      var elementStyle = document.getElementById('controller').style;
+      elementStyle.transitionDuration = "1.0s";
+      elementStyle.backgroundColor = "#fff";
+    }, 300);
+  }
 
   $scope.toScreen2 = function () {
     $scope.currentScreen = 2;
@@ -201,7 +211,7 @@ angular.module('book', [])
           console.log(e.keyCode);
           break;
       }
-    }
+    };
   
 
 

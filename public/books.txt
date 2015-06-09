@@ -1,5 +1,5 @@
-Enders Game,2
-Speaker for the Dead,0
+Enders Game,4
+Speaker for the Dead,2
 Xenocide,7
 Children of the Mind,0
 test test,0
